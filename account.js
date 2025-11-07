@@ -85,5 +85,4 @@ function signUp() {
     let usersArr = JSON.parse(localStorage.getItem("Data")) || [];
     usersArr.push(data)
     localStorage.setItem("Data", JSON.stringify(usersArr))
-
 }
