@@ -62,17 +62,32 @@ function post() {
 
 // Register Functionality
 
+function emptyfields() {
+    let firstName = document.getElementById("firstName").value = ""
+    let surName = document.getElementById("surName").value = ""
+    let day = document.getElementById("day").value = "Day"
+    let month = document.getElementById("month").value = "Month"
+    let year = document.getElementById("year").value = "Year"
+    let gender = document.getElementsByName("gender")
+    let email = document.getElementById("email").value = ""
+    let password = document.getElementById("password").value = ""
+}
+
 function passGen() {
-    let char = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()-_=+][{}|;:<>.,?/"
-    let passLength = 8
+    let char = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    let numbers = "1234567890"
+    let specialChar = "!@#$%^&*()-_=+][{}|;:<>.,?/"
+    let passLength = 3
     let pass = ""
     for (let i = 0; i < passLength; i++) {
-        let ranIndex = Math.floor(Math.random() * char.length)
-        pass += char[ranIndex]
+        let ranIndex1 = Math.floor(Math.random() * char.length)
+        let ranIndex2 = Math.floor(Math.random() * numbers.length)
+        let ranIndex3 = Math.floor(Math.random() * specialChar.length)
+        pass += char[ranIndex1] + numbers[ranIndex2] + specialChar[ranIndex3]
     }
 
-    document.getElementById("password").value = pass
-    console.log(pass)
+    let password = document.getElementById("password").value = pass
+    console.log(password)
 }
 
 function signUp() {
@@ -175,7 +190,7 @@ function signUp() {
         return
     }
 
-    if (password.length < 8) missing.push("Atleast 8 Characters")
+    if (password.length < 9) missing.push("Atleast 9 Characters")
     if (!nunRegEx.test(password)) missing.push("Atleast Enter one number")
     if (!speRegEx.test(password)) missing.push("Atleast Enter one Special Character")
 
@@ -196,6 +211,7 @@ function signUp() {
         });
     }
 
+    
     let data = {
         fName: firstName,
         sName: surName,
@@ -204,14 +220,18 @@ function signUp() {
         gender: userGender,
         dob: `${day}-${month}-${year}`
     }
-
+    
     console.log(data)
-
+    
     let usersArr = JSON.parse(localStorage.getItem("Data")) || [];
     usersArr.push(data)
     localStorage.setItem("Data", JSON.stringify(usersArr))
+    
+    emptyfields()
 
     setTimeout(function () {
         window.location.href = "/dashboard.html"
     }, 5000)
+
+
 }
