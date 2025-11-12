@@ -59,20 +59,159 @@ function post() {
     image.files = " "
 }
 
-// Log In
 
-// function login(event) {
-//     event.preventDefault();
+// Register Functionality
 
-//     let email = document.getElementById("email").value
-//     let pass = document.getElementById("pass").value
+function passGen() {
+    let char = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()-_=+][{}|;:<>.,?/"
+    let passLength = 8
+    let pass = ""
+    for (let i = 0; i < passLength; i++) {
+        let ranIndex = Math.floor(Math.random() * char.length)
+        pass += char[ranIndex]
+    }
 
-//     if (email === email.trim || email === "" || !email.includes("@") || !email.includes(".")) {
-//         alert("Enter Valid Credentials")
-//     } else if (pass === "" || pass.length < 8) {
-//         alert("Enter Valid Credential")
-//     } else {
-//         alert("LoggedIn")
-//     }
-// }
+    document.getElementById("password").value = pass
+    console.log(pass)
+}
 
+function signUp() {
+    let firstName = document.getElementById("firstName").value
+    let surName = document.getElementById("surName").value
+    let day = document.getElementById("day").value
+    let month = document.getElementById("month").value
+    let year = document.getElementById("year").value
+    let gender = document.getElementsByName("gender")
+    let email = document.getElementById("email").value.trim()
+    let emailRegEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    let password = document.getElementById("password").value
+    let nunRegEx = /(?=.*\d)/
+    let speRegEx = /(?=.*[!@#$%^&()`~\-_'+=,.?":{}|<>])/
+    let missing = [];
+
+    if (firstName === "" && surName === "") {
+        Swal.fire({
+            icon: "error",
+            title: "Enter Your Full Name!!!",
+            text: "Please Enter Your Full Name!",
+        });
+        return
+    }
+
+    if (firstName.trim() === "") missing.push("First Name")
+    if (surName.trim() === "") missing.push("Sur Name")
+
+    if (missing.length > 0) {
+        Swal.fire({
+            icon: "error",
+            title: "Enter Your Full Name Correctly",
+            text: "Please Enter Your " + missing.join(", ")
+        });
+        return;
+    }
+
+    if (day === "Day" && month === "Month" && year === "Year") {
+        Swal.fire({
+            icon: "error",
+            title: "Enter Your Date Of Birth!!!",
+            text: "Please Enter Your Date Of Birth Correctly!",
+        });
+        return
+    }
+
+    if (day === "Day") missing.push("Day");
+    if (month === "Month") missing.push("Month");
+    if (year === "Year") missing.push("Year");
+
+    if (missing.length > 0) {
+        Swal.fire({
+            icon: "error",
+            title: "Incomplete Date of Birth",
+            text: "Please select: " + missing.join(", ")
+        });
+        return;
+    }
+
+    let userGender = ""
+    for (let i = 0; i < gender.length; i++) {
+        if (gender[i].checked) {
+            userGender = gender[i].value
+        }
+    }
+
+    if (!userGender) {
+        Swal.fire({
+            icon: "error",
+            title: "Enter Your Gender!!!",
+            text: "Please Enter Your Gender Correctly!",
+        });
+        return
+    }
+
+    if (email === "") {
+        Swal.fire({
+            icon: "error",
+            title: "Enter Your Email!!!",
+            text: "Please Enter Your Email!",
+        });
+        return
+    }
+
+    if (!emailRegEx.test(email)) {
+        Swal.fire({
+            icon: "error",
+            title: "Enter Correct Email!!!",
+            text: "Please Enter Your Email Correctly!",
+        });
+        return
+    }
+
+    if (password === "") {
+        Swal.fire({
+            icon: "error",
+            title: "Enter Your Password!!!",
+            text: "Please Enter Your Password!",
+        });
+        return
+    }
+
+    if (password.length < 8) missing.push("Atleast 8 Characters")
+    if (!nunRegEx.test(password)) missing.push("Atleast Enter one number")
+    if (!speRegEx.test(password)) missing.push("Atleast Enter one Special Character")
+
+    if (missing.length > 0) {
+        Swal.fire({
+            icon: "error",
+            title: "Enter a Stronger PIN!!!",
+            html: "Please enter:<br><br>" + missing.join("<br>") + " in your Password",
+        });
+        return
+    }
+
+    else {
+        Swal.fire({
+            icon: "success",
+            title: "Succesfully Logged In!!!",
+            text: "Congrats!!! You Have Succesfully Logged In",
+        });
+    }
+
+    let data = {
+        fName: firstName,
+        sName: surName,
+        email: email,
+        pass: password,
+        gender: userGender,
+        dob: `${day}-${month}-${year}`
+    }
+
+    console.log(data)
+
+    let usersArr = JSON.parse(localStorage.getItem("Data")) || [];
+    usersArr.push(data)
+    localStorage.setItem("Data", JSON.stringify(usersArr))
+
+    setTimeout(function () {
+        window.location.href = "/dashboard.html"
+    }, 5000)
+}
