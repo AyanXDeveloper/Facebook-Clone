@@ -219,35 +219,50 @@ function signUp() {
         return
     }
 
-    else {
+
+    let user = true;
+
+    let usersData = JSON.parse(localStorage.getItem("Data"))
+    for (let i = 0; i < usersData.length; i++) {
+        if (email === usersData[i].email) {
+            user = false
+            Swal.fire({
+                icon: "error",
+                title: "User Already Registered",
+                text: "Log In",
+                footer: '<a class="forgot-link-2" href="./account.html">Log In</a>'
+            });
+            break
+        }
+    }
+    if (user) {
         Swal.fire({
             icon: "success",
-            title: "Succesfully Logged In!!!",
-            text: "Congrats!!! You Have Succesfully Logged In",
+            title: "Succesfully Registered In!!!",
+            text: "Congrats!!! You Have Succesfully Registered",
         });
+
+        let data = {
+            fName: firstName,
+            sName: surName,
+            email: email,
+            pass: password,
+            gender: userGender,
+            dob: `${day}-${month}-${year}`
+        }
+
+        console.log(data)
+
+        let usersArr = JSON.parse(localStorage.getItem("Data")) || [];
+        usersArr.push(data)
+        localStorage.setItem("Data", JSON.stringify(usersArr))
+
+        emptyfields()
+
+        setTimeout(function () {
+            window.location.href = "/dashboard.html"
+        }, 3000)
     }
-
-
-    let data = {
-        fName: firstName,
-        sName: surName,
-        email: email,
-        pass: password,
-        gender: userGender,
-        dob: `${day}-${month}-${year}`
-    }
-
-    console.log(data)
-
-    let usersArr = JSON.parse(localStorage.getItem("Data")) || [];
-    usersArr.push(data)
-    localStorage.setItem("Data", JSON.stringify(usersArr))
-
-    emptyfields()
-
-    setTimeout(function () {
-        window.location.href = "/dashboard.html"
-    }, 3000)
 }
 
 // Login Functionality
