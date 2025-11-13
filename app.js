@@ -291,8 +291,12 @@ function login() {
                 title: "Succesfully Logged In",
                 text: "You will be redirected shortly"
             });
+
+            setTimeout(function () {
+                window.location.href = "./dashboard.html"
+            }, 3000)
             break
-        } 
+        }
         if (!user) {
             Swal.fire({
                 icon: "error",
@@ -300,11 +304,6 @@ function login() {
                 text: "Please Enter correct Email or Password",
                 footer: '<a class="forgot-link-2" href="./account.html">Register your account</a>'
             });
-            return
         }
     }
-
-    setTimeout(function () {
-        window.location.href = "./dashboard.html"
-    }, 3000)
 }
