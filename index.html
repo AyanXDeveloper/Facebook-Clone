@@ -10,30 +10,34 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Helvetica&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
+
   <div class="container">
     <div class="left-section">
       <h1 class="logo">facebook</h1>
       <p>Connect with friends and the world around you on Facebook.</p>
     </div>
     <div class="right-section">
-      <form>
-        <input id="email" type="text" placeholder="Email or phone number" />
-        <input id="pass" type="password" placeholder="Password" />
-        <!-- <a class="login-btn" href="dashboard.html">Log In</a> -->
-        <button class="login-btn" onclick="login(event)">Log In</button>
-        <a href="#" class="forgot-link">Forgotten password?</a>
-        <hr />
-        <a href="account.html" class="create-btn">Create New Account</a>
-      </form>
+      <input id="email" type="text" placeholder="Email or phone number" />
+      <div class="password-container">
+        <input type="password" placeholder="New password" id="password">
+        <i class="fa-regular fa-eye-slash" id="togglePassword"></i>
+      </div>
+      <button class="login-btn" onclick="login()">Log In</button>
+      <a href="#" class="forgot-link">Forgotten password?</a>
+      <hr />
+      <a href="account.html" class="create-btn">Create New Account</a>
       <p class="bottom-link"><a href="#">Create a Page</a> for a celebrity, brand or business.</p>
     </div>
   </div>
+
+  <script src="app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
-
-
-<script src="app.js"></script>
 
 </html>

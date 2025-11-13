@@ -149,3 +149,16 @@ select {
 .signup-btn:hover {
     background-color: #009000;
 }
+
+.password-container {
+    position: relative;
+}
+
+.password-container i {
+    position: absolute;
+    right: 10px;
+    top: 42%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #bebbbb;
+}

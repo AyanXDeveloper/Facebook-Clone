@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Create an account - Facebook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="account.css">
 </head>
 
@@ -106,7 +109,10 @@
                 <label><input type="radio" name="gender" value="Custom"> Custom</label>
             </div>
             <input type="text" placeholder="Mobile number or email address" id="email">
-            <input type="password" placeholder="New password" id="password">
+            <div class="password-container">
+                <input type="password" placeholder="New password" id="password">
+                <i class="fa-regular fa-eye-slash" id="togglePassword"></i>
+            </div>
 
             <button class="passGen" onclick="passGen()">Generate Password</button>
 

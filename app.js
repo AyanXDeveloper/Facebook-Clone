@@ -59,6 +59,22 @@ function post() {
     image.files = " "
 }
 
+// Toggle Eye Functionality
+
+let eyeIcon = document.getElementById("togglePassword")
+eyeIcon.onclick = passtoggle
+
+function passtoggle() {
+    let pass = document.getElementById("password")
+    if (pass.type === "password") {
+        pass.type = "text"
+        eyeIcon.className = "fa-regular fa-eye"
+    } else {
+        pass.type = "password"
+        eyeIcon.className = "fa-regular fa-eye-slash"
+    }
+}
+
 
 // Register Functionality
 
@@ -211,7 +227,7 @@ function signUp() {
         });
     }
 
-    
+
     let data = {
         fName: firstName,
         sName: surName,
@@ -220,18 +236,75 @@ function signUp() {
         gender: userGender,
         dob: `${day}-${month}-${year}`
     }
-    
+
     console.log(data)
-    
+
     let usersArr = JSON.parse(localStorage.getItem("Data")) || [];
     usersArr.push(data)
     localStorage.setItem("Data", JSON.stringify(usersArr))
-    
+
     emptyfields()
 
     setTimeout(function () {
         window.location.href = "/dashboard.html"
-    }, 5000)
+    }, 3000)
+}
 
+// Login Functionality
 
+function login() {
+    let email = document.getElementById("email").value.trim()
+    let password = document.getElementById("password").value.trim()
+    let usersData = JSON.parse(localStorage.getItem("Data"))
+    let user = false
+    let missing = []
+
+    if (email === "" && password === "") {
+        Swal.fire({
+            icon: "error",
+            title: "Fill in both the Fields!!!",
+            text: "Please Fill in all the Fields!",
+            footer: '<a class="forgot-link-2" href="./account.html">Register your account</a>'
+        });
+        return
+    }
+
+    if (password === "") missing.push("Password")
+    if (email === "") missing.push("Email")
+
+    if (missing.length > 0) {
+        Swal.fire({
+            icon: "error",
+            title: "Enter your " + missing.join() + "!!!",
+            text: "Please Enter your: " + missing.join(),
+            footer: '<a class="forgot-link-2" href="./account.html">Register your account</a>'
+        });
+        return
+    }
+
+    for (let i = 0; i < usersData.length; i++) {
+        console.log(usersData[i].email)
+        if (email === usersData[i].email && password === usersData[i].pass) {
+            user = true
+            Swal.fire({
+                icon: "success",
+                title: "Succesfully Logged In",
+                text: "You will be redirected shortly"
+            });
+            break
+        } 
+        if (!user) {
+            Swal.fire({
+                icon: "error",
+                title: "Invalid Credentials",
+                text: "Please Enter correct Email or Password",
+                footer: '<a class="forgot-link-2" href="./account.html">Register your account</a>'
+            });
+            return
+        }
+    }
+
+    setTimeout(function () {
+        window.location.href = "./dashboard.html"
+    }, 3000)
 }
