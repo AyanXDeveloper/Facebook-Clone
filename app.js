@@ -1,8 +1,10 @@
+// Facebook Dashboard Post Functionality
+
 function post() {
+    var post = document.getElementById("post");
     var description = document.getElementById("description")
     var image = document.getElementById("file")
-    var post = document.getElementById("post");
-    var file = image.files[0]
+    var file =  image.files[0]
     var imgUrl = URL.createObjectURL(file)
 
     post.innerHTML += `
@@ -221,8 +223,8 @@ function signUp() {
 
 
     let user = true;
-
     let usersData = JSON.parse(localStorage.getItem("Data"))
+
     for (let i = 0; i < usersData.length; i++) {
         if (email === usersData[i].email) {
             user = false
@@ -298,7 +300,7 @@ function login() {
     }
 
     for (let i = 0; i < usersData.length; i++) {
-        console.log(usersData[i].email)
+        // console.log(usersData[i].email)
         if (email === usersData[i].email && password === usersData[i].pass) {
             user = true
             Swal.fire({
